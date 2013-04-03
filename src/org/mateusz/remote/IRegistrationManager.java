@@ -1,6 +1,7 @@
 package org.mateusz.remote;
 
 import java.rmi.Remote;
+import java.rmi.RemoteException;
 
 /**
  * Created with IntelliJ IDEA.
@@ -11,6 +12,6 @@ import java.rmi.Remote;
  */
 public interface IRegistrationManager extends Remote {
 
-    public boolean register(String nick,IClientObserver observer);
+    public boolean register(String nick,IClientObserver observer) throws RemoteException;
 
 }
