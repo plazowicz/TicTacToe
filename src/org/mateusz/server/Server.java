@@ -31,9 +31,9 @@ public class Server {
     }
 
     public void start() throws RemoteException, MalformedURLException {
+        System.setProperty("java.rmi.server.hostname",hostname);
         LocateRegistry.createRegistry(port);
         manager = new RegistrationManager();
-        System.setProperty("java.rmi.server.hostname",hostname);
         Naming.rebind("rmi://127.0.0.1:"+port.toString()+"/RegistrationManager", manager);
     }
 

@@ -20,7 +20,8 @@ public class Client {
             System.exit(-1);
         }
         try {
-            String url = "rmi://"+args[0]+":"+args[1]+"/Remote";
+            System.setProperty("java.rmi.server.hostname",args[0]);
+            String url = "rmi://"+args[0]+":"+args[1]+"/RegistrationManager";
             System.out.println(url);
             IRegistrationManager manager = (IRegistrationManager) Naming.lookup(url);
             manager.register(args[2],null);
