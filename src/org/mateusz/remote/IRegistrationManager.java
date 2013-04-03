@@ -11,6 +11,6 @@ import java.rmi.Remote;
  */
 public interface IRegistrationManager extends Remote {
 
-    public String register(String nick,IClientObserver observer);
+    public boolean register(String nick,IClientObserver observer);
 
 }

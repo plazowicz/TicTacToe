@@ -3,6 +3,10 @@ package org.mateusz.server;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.rmi.Naming;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
 import java.util.Properties;
 import java.util.logging.Logger;
 
@@ -19,10 +23,18 @@ public class Server {
     public static final Logger logger = Logger.getLogger(Server.class.getSimpleName());
 
     private String hostname;
-    private int port;
+    private Integer port;
+    private RegistrationManager manager;
 
     public Server() {
         loadConfiguration();
+    }
+
+    public void start() throws RemoteException, MalformedURLException {
+        LocateRegistry.createRegistry(port);
+        manager = new RegistrationManager();
+        System.setProperty("java.rmi.server.hostname",hostname);
+        Naming.rebind("rmi://127.0.0.1:"+port.toString()+"/RegistrationManager", manager);
     }
 
     private void loadConfiguration() {
@@ -35,8 +47,10 @@ public class Server {
         hostname = properties.getProperty("hostname");
         logger.info("Hostname: "+hostname);
         port = Integer.parseInt(properties.getProperty("port"));
-        logger.info("Port: "+((Integer)port).toString());
+        logger.info("Port: "+(port).toString());
     }
+
+
 
     public static void main(String[] args) {
         Server server = new Server();
