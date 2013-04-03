@@ -54,6 +54,13 @@ public class Server {
 
     public static void main(String[] args) {
         Server server = new Server();
+        try {
+            server.start();
+        } catch (RemoteException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        } catch (MalformedURLException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
     }
 
 }
