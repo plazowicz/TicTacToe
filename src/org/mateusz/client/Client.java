@@ -1,6 +1,6 @@
 package org.mateusz.client;
 
-import org.mateusz.remote.IRegistrationManager;
+import org.mateusz.remote.IUserManager;
 
 import java.rmi.Naming;
 
@@ -20,10 +20,10 @@ public class Client {
             System.exit(-1);
         }
         try {
-            System.setProperty("java.rmi.server.hostname",args[0]);
-            String url = "rmi://"+args[0]+":"+args[1]+"/RegistrationManager";
+            System.setProperty("java.rmi.server.hostname", args[0]);
+            String url = "rmi://"+args[0]+":"+args[1]+"/UserManager";
             System.out.println(url);
-            IRegistrationManager manager = (IRegistrationManager) Naming.lookup(url);
+            IUserManager manager = (IUserManager) Naming.lookup(url);
             manager.register(args[2],null);
         } catch(Exception e) {
             e.printStackTrace();

@@ -1,6 +1,5 @@
 package org.mateusz.server;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -24,7 +23,9 @@ public class Server {
 
     private String hostname;
     private Integer port;
-    private RegistrationManager manager;
+    private UserManager userManager;
+    private GameManager gameManager;
+    private String registryUrl;
 
     public Server() {
         loadConfiguration();
@@ -33,8 +34,11 @@ public class Server {
     public void start() throws RemoteException, MalformedURLException {
         System.setProperty("java.rmi.server.hostname",hostname);
         LocateRegistry.createRegistry(port);
-        manager = new RegistrationManager();
-        Naming.rebind("rmi://127.0.0.1:"+port.toString()+"/RegistrationManager", manager);
+        registryUrl = "rmi://127.0.0.1:"+port.toString();
+        userManager = new UserManager();
+        Naming.rebind(registryUrl+"/UserManager", userManager);
+        gameManager = new GameManager(userManager);
+        Naming.rebind(registryUrl+"/GameManager", gameManager);
     }
 
     private void loadConfiguration() {

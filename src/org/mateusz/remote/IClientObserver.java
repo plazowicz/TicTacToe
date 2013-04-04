@@ -1,6 +1,7 @@
 package org.mateusz.remote;
 
 import java.rmi.Remote;
+import java.rmi.RemoteException;
 
 /**
  * Created with IntelliJ IDEA.
@@ -11,4 +12,7 @@ import java.rmi.Remote;
  */
 public interface IClientObserver extends Remote {
 
+    public void inviteToGame(IGameListener listener) throws RemoteException;
+
+    public void loseConnection(IGameListener listener) throws RemoteException;
 }
