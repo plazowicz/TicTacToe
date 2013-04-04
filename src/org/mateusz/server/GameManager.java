@@ -1,6 +1,6 @@
 package org.mateusz.server;
 
-import org.mateusz.controller.GameThread;
+import org.mateusz.controller.GameRunnable;
 import org.mateusz.model.HumanPlayer;
 import org.mateusz.model.IPlayer;
 import org.mateusz.remote.IClientObserver;
@@ -9,7 +9,6 @@ import org.mateusz.remote.IGameManager;
 import org.mateusz.utils.PlayerSymbol;
 
 import java.net.MalformedURLException;
-import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.Collections;
@@ -33,29 +32,29 @@ public class GameManager extends UnicastRemoteObject implements IGameManager {
     });
 
     private UserManager userManager;
-    private Map<String,GameThread> games;
+    private Map<String,GameRunnable> games;
 
     protected GameManager(UserManager userManager) throws RemoteException {
         super();
         this.userManager = userManager;
-        this.games = new HashMap<String, GameThread>();
+        this.games = new HashMap<String, GameRunnable>();
     }
 
     @Override
     public IGameListener createGameWithHuman(PlayerSymbol symbol, String nick) throws RemoteException, MalformedURLException {
         IGameListener gameListener = new GameListener();
-        Naming.rebind(nick+"_gl",gameListener);
+//        Naming.rebind(nick+"_gl",gameListener);
         IPlayer player = new HumanPlayer(gameListener,nick,symbol);
-        GameThread gt = new GameThread(player,userManager.getClientObserver(nick));
+        GameRunnable gt = new GameRunnable(player,userManager.getClientObserver(nick));
         games.put(nick,gt);
         return gameListener;
     }
 
     @Override
     public IGameListener joinGame(String name, String nick) throws RemoteException, MalformedURLException {
-        GameThread gt = games.get(name);
+        GameRunnable gt = games.get(name);
         IGameListener gl = new GameListener();
-        Naming.rebind(nick+"_gl",gl);
+//        Naming.rebind(nick+"_gl",gl);
         IPlayer player = new HumanPlayer(gl,nick,OPPOSITE_SYMBOLS.get(gt.getFirstPlayer().getSymbol()));
         IClientObserver observer = userManager.getClientObserver(nick);
         gt.addPlayer(player,observer);

@@ -1,6 +1,9 @@
 package org.mateusz.client;
 
+import org.mateusz.remote.IClientObserver;
+import org.mateusz.remote.IGameManager;
 import org.mateusz.remote.IUserManager;
+import org.mateusz.utils.PlayerSymbol;
 
 import java.rmi.Naming;
 
@@ -21,10 +24,13 @@ public class Client {
         }
         try {
             System.setProperty("java.rmi.server.hostname",args[3]);
-            String url = "rmi://"+args[0]+":"+args[1]+"/UserManager";
+            String url = "rmi://"+args[0]+":"+args[1];
             System.out.println(url);
-            IUserManager manager = (IUserManager) Naming.lookup(url);
-            manager.register(args[2],null);
+            IUserManager manager = (IUserManager) Naming.lookup(url+"/UserManager");
+            IClientObserver clientObserver = new ClientObserver();
+            manager.register(args[2], clientObserver);
+            IGameManager gameManager = (IGameManager) Naming.lookup(url+"/GameManager");
+            gameManager.createGameWithHuman(PlayerSymbol.CIRCLE,args[2]);
         } catch(Exception e) {
             e.printStackTrace();
         }

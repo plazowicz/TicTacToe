@@ -15,6 +15,8 @@ import java.rmi.server.UnicastRemoteObject;
  */
 public class ClientObserver extends UnicastRemoteObject implements IClientObserver {
 
+    private boolean connection = true;
+
     protected ClientObserver() throws RemoteException {
         super();
     }
@@ -26,6 +28,10 @@ public class ClientObserver extends UnicastRemoteObject implements IClientObserv
 
     @Override
     public void loseConnection(IGameListener listener) throws RemoteException {
-        //To change body of implemented methods use File | Settings | File Templates.
+        connection = false;
+    }
+
+    public boolean isConnected() {
+        return connection;
     }
 }
