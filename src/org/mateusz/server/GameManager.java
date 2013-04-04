@@ -8,6 +8,8 @@ import org.mateusz.remote.IGameListener;
 import org.mateusz.remote.IGameManager;
 import org.mateusz.utils.PlayerSymbol;
 
+import java.net.MalformedURLException;
+import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.Collections;
@@ -40,8 +42,9 @@ public class GameManager extends UnicastRemoteObject implements IGameManager {
     }
 
     @Override
-    public IGameListener createGameWithHuman(PlayerSymbol symbol, String nick) throws RemoteException {
+    public IGameListener createGameWithHuman(PlayerSymbol symbol, String nick) throws RemoteException, MalformedURLException {
         IGameListener gameListener = new GameListener();
+        Naming.rebind(nick+"_gl",gameListener);
         IPlayer player = new HumanPlayer(gameListener,nick,symbol);
         GameThread gt = new GameThread(player,userManager.getClientObserver(nick));
         games.put(nick,gt);
@@ -49,9 +52,10 @@ public class GameManager extends UnicastRemoteObject implements IGameManager {
     }
 
     @Override
-    public IGameListener joinGame(String name, String nick) throws RemoteException {
+    public IGameListener joinGame(String name, String nick) throws RemoteException, MalformedURLException {
         GameThread gt = games.get(name);
         IGameListener gl = new GameListener();
+        Naming.rebind(nick+"_gl",gl);
         IPlayer player = new HumanPlayer(gl,nick,OPPOSITE_SYMBOLS.get(gt.getFirstPlayer().getSymbol()));
         IClientObserver observer = userManager.getClientObserver(nick);
         gt.addPlayer(player,observer);

@@ -1,5 +1,6 @@
 package org.mateusz.model;
 
+import org.mateusz.remote.IGameListener;
 import org.mateusz.utils.PlayerSymbol;
 
 /**
@@ -17,6 +18,11 @@ public class BotPlayer implements IPlayer {
 
     @Override
     public PlayerSymbol getSymbol() {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public IGameListener getListener() {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 }

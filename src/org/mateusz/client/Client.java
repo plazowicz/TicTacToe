@@ -15,12 +15,12 @@ public class Client {
 
 
     public static void main(String[] args) {
-        if( args.length != 3 ) {
-            System.out.println("Usage: java <IP> <PORT> <NICK>");
+        if( args.length != 4 ) {
+            System.out.println("Usage: java <IP> <PORT> <NICK> <CLIENT_IP>");
             System.exit(-1);
         }
         try {
-            System.setProperty("java.rmi.server.hostname", args[0]);
+            System.setProperty("java.rmi.server.hostname",args[3]);
             String url = "rmi://"+args[0]+":"+args[1]+"/UserManager";
             System.out.println(url);
             IUserManager manager = (IUserManager) Naming.lookup(url);

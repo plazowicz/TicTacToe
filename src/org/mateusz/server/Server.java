@@ -18,8 +18,10 @@ import java.util.logging.Logger;
  */
 public class Server {
 
-    public static final String PROPERTIES = "src/org/mateusz/server/conf/conf.properties";
+    public static final String PROPERTIES = "conf/conf.properties";
     public static final Logger logger = Logger.getLogger(Server.class.getSimpleName());
+
+    private static Server server;
 
     private String hostname;
     private Integer port;
@@ -27,8 +29,19 @@ public class Server {
     private GameManager gameManager;
     private String registryUrl;
 
-    public Server() {
+    private Server() {
         loadConfiguration();
+    }
+
+    public static Server serverInstance() {
+        if( server == null ) {
+            server = new Server();
+        }
+        return server;
+    }
+
+    public String getRegistryUrl() {
+        return registryUrl;
     }
 
     public void start() throws RemoteException, MalformedURLException {
@@ -57,7 +70,7 @@ public class Server {
 
 
     public static void main(String[] args) {
-        Server server = new Server();
+        Server server = Server.serverInstance();
         try {
             server.start();
         } catch (RemoteException e) {

@@ -2,6 +2,7 @@ package org.mateusz.remote;
 
 import org.mateusz.utils.PlayerSymbol;
 
+import java.net.MalformedURLException;
 import java.rmi.RemoteException;
 
 /**
@@ -13,9 +14,9 @@ import java.rmi.RemoteException;
  */
 public interface IGameManager {
 
-    public IGameListener createGameWithHuman(PlayerSymbol symbol, String nick) throws RemoteException;
+    public IGameListener createGameWithHuman(PlayerSymbol symbol, String nick) throws RemoteException, MalformedURLException;
 
-    public IGameListener joinGame(String name, String nick) throws RemoteException;
+    public IGameListener joinGame(String name, String nick) throws RemoteException, MalformedURLException;
 
     public IGameListener createGameWithAI(PlayerSymbol symbol, String nick) throws RemoteException;
 
