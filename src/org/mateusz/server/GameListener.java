@@ -5,7 +5,10 @@ import org.mateusz.utils.PlayerSymbol;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.Lock;
 import java.util.logging.Logger;
+import com.hazelcast.core.Hazelcast;
 
 /**
  * Created with IntelliJ IDEA.
@@ -18,24 +21,41 @@ public class GameListener extends UnicastRemoteObject implements IGameListener {
 
     public static final Logger logger = Logger.getLogger(GameListener.class.getSimpleName());
 
+    public final Lock lock = Hazelcast.getLock(GameListener.class.getSimpleName());;
+    public final Condition myCond = lock.newCondition();
+    public final Condition opponentCond = lock.newCondition();
+    public final Condition joinCond = lock.newCondition();
+
     private int[] move;
     private int[] opponentMove;
     private PlayerSymbol winner;
+    private boolean ndPlayerPresence;
 
     protected GameListener() throws RemoteException {
         super();
+        ndPlayerPresence = false;
     }
 
     @Override
-    public synchronized void makeMove(int[] move) throws RemoteException {
-        this.move = move;
-        notifyAll();
+    public void makeMove(int[] move) throws RemoteException {
+        lock.lock();
+        try {
+            this.move = move;
+            myCond.signal();
+        } finally {
+            lock.unlock();
+        }
     }
 
     @Override
-    public synchronized void setOpponentMove(int[] move) throws RemoteException {
-        opponentMove = move;
-        notifyAll();
+    public void setOpponentMove(int[] move) throws RemoteException {
+        lock.lock();
+        try {
+            opponentMove = move;
+            opponentCond.signal();
+        } finally {
+            lock.unlock();
+        }
     }
 
     @Override
@@ -71,5 +91,36 @@ public class GameListener extends UnicastRemoteObject implements IGameListener {
     @Override
     public boolean isCheckReady() throws RemoteException {
         return winner != null;
+    }
+
+    @Override
+    public Condition getMyCond() throws RemoteException {
+        return myCond;
+    }
+
+    @Override
+    public Condition getOpponentCond() throws RemoteException {
+        return opponentCond;
+    }
+
+    @Override
+    public boolean playerDidJoin() throws RemoteException {
+        return ndPlayerPresence;
+    }
+
+    @Override
+    public void setPresence() throws RemoteException {
+        lock.lock();
+        try {
+            ndPlayerPresence = true;
+            joinCond.signal();
+        } finally {
+            lock.unlock();
+        }
+    }
+
+    @Override
+    public Condition getJoinCond() throws RemoteException {
+        return joinCond;
     }
 }

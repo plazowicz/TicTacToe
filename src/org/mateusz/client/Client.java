@@ -1,6 +1,7 @@
 package org.mateusz.client;
 
 import org.mateusz.remote.IClientObserver;
+import org.mateusz.remote.IGameListener;
 import org.mateusz.remote.IGameManager;
 import org.mateusz.remote.IUserManager;
 import org.mateusz.utils.PlayerSymbol;
@@ -17,6 +18,20 @@ import java.rmi.Naming;
 public class Client {
 
 
+    private IUserManager userManager;
+    private IGameManager gameManager;
+    public Client() {
+
+    }
+
+    public void createGame() {
+
+    }
+
+    public void joinGame() {
+
+    }
+
     public static void main(String[] args) {
         if( args.length != 4 ) {
             System.out.println("Usage: java <IP> <PORT> <NICK> <CLIENT_IP>");
@@ -30,7 +45,10 @@ public class Client {
             IClientObserver clientObserver = new ClientObserver();
             manager.register(args[2], clientObserver);
             IGameManager gameManager = (IGameManager) Naming.lookup(url+"/GameManager");
-            gameManager.createGameWithHuman(PlayerSymbol.CIRCLE,args[2]);
+            IGameListener gl = gameManager.createGameWithHuman(PlayerSymbol.CIRCLE,args[2]);
+            while( !gl.playerDidJoin() )
+                gl.getJoinCond().await();
+
         } catch(Exception e) {
             e.printStackTrace();
         }

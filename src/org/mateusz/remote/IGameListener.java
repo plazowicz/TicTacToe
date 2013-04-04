@@ -4,6 +4,7 @@ import org.mateusz.utils.PlayerSymbol;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.concurrent.locks.Condition;
 
 /**
  * Created with IntelliJ IDEA.
@@ -29,5 +30,15 @@ public interface IGameListener extends Remote {
     public void setWinner(PlayerSymbol symbol) throws RemoteException;
 
     public boolean isCheckReady() throws RemoteException;
+
+    public Condition getMyCond() throws RemoteException;
+
+    public Condition getOpponentCond() throws RemoteException;
+
+    public boolean playerDidJoin() throws RemoteException;
+
+    public void setPresence() throws RemoteException;
+
+    public Condition getJoinCond() throws RemoteException;
 
 }

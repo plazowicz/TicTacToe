@@ -58,6 +58,7 @@ public class GameManager extends UnicastRemoteObject implements IGameManager {
         IPlayer player = new HumanPlayer(gl,nick,OPPOSITE_SYMBOLS.get(gt.getFirstPlayer().getSymbol()));
         IClientObserver observer = userManager.getClientObserver(nick);
         gt.addPlayer(player,observer);
+        gt.getFirstPlayer().getListener().setPresence();
         return gl;
     }
 
