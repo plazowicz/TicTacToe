@@ -13,7 +13,7 @@ import java.util.Map;
  */
 public enum PlayerSymbol {
 
-    CROSS("X"), CIRCLE("O"), NOBODY("N"), LAST("L");
+    CROSS("X"), CIRCLE("O"), DRAW("nobody"), LAST("L");
 
     private String code;
 

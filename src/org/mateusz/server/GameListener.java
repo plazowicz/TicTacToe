@@ -69,17 +69,18 @@ public class GameListener extends UnicastRemoteObject implements IGameListener {
 
     @Override
     public PlayerSymbol gameDidFinish() throws RemoteException {
-        return winner;
+        PlayerSymbol symbol = winner;
+        winner = null;
+        return symbol;
     }
 
     @Override
-    public synchronized void setWinner(PlayerSymbol symbol) throws RemoteException {
-        winner = symbol;
-        notifyAll();
+    public void setWinner(PlayerSymbol symbol) throws RemoteException {
+        this.winner = symbol;
     }
 
     @Override
-    public boolean isCheckReady() throws RemoteException {
+    public boolean isWinnerCheckReady() throws RemoteException {
         return winner != null;
     }
 

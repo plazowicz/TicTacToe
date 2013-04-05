@@ -61,15 +61,18 @@ public class GameRunnable implements Runnable {
                     break;
                 }
                 secondPlayer.getListener().setOpponentMove(move);
-                if( ( symbol = gameController.gameDidFinish() ) != null ) {
-                    firstPlayer.getListener().setWinner(symbol);
-                    secondPlayer.getListener().setWinner(symbol);
+
+                symbol = gameController.gameDidFinish();
+                firstPlayer.getListener().setWinner(symbol);
+                secondPlayer.getListener().setWinner(symbol);
+                if( symbol != PlayerSymbol.LAST ) {
                     running = false;
                     break;
                 }
+
                 if( count == Map.SIZE*Map.SIZE ) {
-                    firstPlayer.getListener().setWinner(PlayerSymbol.NOBODY);
-                    secondPlayer.getListener().setWinner(PlayerSymbol.NOBODY);
+                    firstPlayer.getListener().setWinner(PlayerSymbol.DRAW);
+                    secondPlayer.getListener().setWinner(PlayerSymbol.DRAW);
                     running = false;
                     break;
                 }
@@ -80,10 +83,13 @@ public class GameRunnable implements Runnable {
                     running = false;
                     break;
                 }
-                    firstPlayer.getListener().setOpponentMove(move);
-                if( ( symbol = gameController.gameDidFinish() ) != null ) {
-                    firstPlayer.getListener().setWinner(symbol);
-                    secondPlayer.getListener().setWinner(symbol);
+
+                firstPlayer.getListener().setOpponentMove(move);
+
+                symbol = gameController.gameDidFinish();
+                firstPlayer.getListener().setWinner(symbol);
+                secondPlayer.getListener().setWinner(symbol);
+                if( symbol != PlayerSymbol.LAST ) {
                     running = false;
                     break;
                 }

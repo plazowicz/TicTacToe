@@ -63,6 +63,7 @@ public class Client {
                     System.exit(-1);
             }
             IGameListener gl = gameManager.createGameWithHuman(symbol,nick);
+            System.out.println("Waiting for opponent...");
             while( !gl.playerDidJoin() )
                 sleep(10);
             gameManager.startGame(nick);
@@ -77,7 +78,9 @@ public class Client {
                 gl.makeMove(new int[]{ x, y});
                 map.setFieldValue(x,y,symbol);
                 map.print();
-                if( (winner = gl.gameDidFinish()) != null ) {
+                while( !gl.isWinnerCheckReady() )
+                    sleep(10);
+                if( (winner = gl.gameDidFinish()) != PlayerSymbol.LAST ) {
                     System.out.println("The winner is "+winner.toString());
                     System.exit(-1);
                 }
@@ -86,7 +89,9 @@ public class Client {
                 int[] opponentMove = gl.getOpponentMove();
                 map.setFieldValue(opponentMove[0],opponentMove[1],Constants.OPPOSITE_SYMBOLS.get(symbol));
                 map.print();
-                if( (winner = gl.gameDidFinish()) != null ) {
+                while( !gl.isWinnerCheckReady() )
+                    sleep(10);
+                if( (winner = gl.gameDidFinish()) != PlayerSymbol.LAST ) {
                     System.out.println("The winner is "+winner.toString());
                     System.exit(-1);
                 }
@@ -117,9 +122,11 @@ public class Client {
                 while( !gl.isOpponentMoveReady() )
                     sleep(10);
                 int[] opponentMove = gl.getOpponentMove();
-                boolean b = map.setFieldValue(opponentMove[0], opponentMove[1], Constants.OPPOSITE_SYMBOLS.get(symbol));
+                map.setFieldValue(opponentMove[0], opponentMove[1], Constants.OPPOSITE_SYMBOLS.get(symbol));
                 map.print();
-                if( (winner = gl.gameDidFinish()) != null ) {
+                while( !gl.isWinnerCheckReady() )
+                    sleep(10);
+                if( (winner = gl.gameDidFinish()) != PlayerSymbol.LAST ) {
                     System.out.println("The winner is "+winner.toString());
                     System.exit(-1);
                 }
@@ -130,7 +137,9 @@ public class Client {
                 gl.makeMove(new int[]{ x, y});
                 map.setFieldValue(x,y,symbol);
                 map.print();
-                if( (winner = gl.gameDidFinish()) != null ) {
+                while( !gl.isWinnerCheckReady() )
+                    sleep(10);
+                if( (winner = gl.gameDidFinish()) != PlayerSymbol.LAST ) {
                     System.out.println("The winner is "+winner.toString());
                     System.exit(-1);
                 }

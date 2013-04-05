@@ -31,7 +31,7 @@ public interface IGameListener extends Remote {
 
     public void setWinner(PlayerSymbol symbol) throws RemoteException;
 
-    public boolean isCheckReady() throws RemoteException;
+    public boolean isWinnerCheckReady() throws RemoteException;
 
     public boolean playerDidJoin() throws RemoteException;
 

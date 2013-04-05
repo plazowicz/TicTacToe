@@ -50,6 +50,6 @@ public class GameController {
             if( map.getFieldValue(0,2) == symbol && map.getFieldValue(2,0) == symbol )
                 return symbol;
         }
-        return null;
+        return PlayerSymbol.LAST;
     }
 }
