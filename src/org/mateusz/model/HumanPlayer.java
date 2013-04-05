@@ -6,6 +6,8 @@ import org.mateusz.utils.PlayerSymbol;
 import java.rmi.RemoteException;
 import java.util.logging.Logger;
 
+import static java.lang.Thread.sleep;
+
 /**
  * Created with IntelliJ IDEA.
  * User: mateusz
@@ -31,7 +33,7 @@ public class HumanPlayer implements IPlayer {
     public int[] makeMove() {
         try {
             while( !listener.isMoveReady() )
-                listener.getMyCond().await();
+                sleep(10);
         }   catch (InterruptedException e) {
             logger.severe(e.getLocalizedMessage());
         }   catch (RemoteException e) {

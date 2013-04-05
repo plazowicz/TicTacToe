@@ -33,14 +33,8 @@ public interface IGameListener extends Remote {
 
     public boolean isCheckReady() throws RemoteException;
 
-    public Condition getMyCond() throws RemoteException;
-
-    public Condition getOpponentCond() throws RemoteException;
-
     public boolean playerDidJoin() throws RemoteException;
 
     public void setPresence() throws RemoteException;
-
-    public Condition getJoinCond() throws RemoteException;
 
 }

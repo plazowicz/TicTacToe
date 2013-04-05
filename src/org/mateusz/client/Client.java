@@ -12,6 +12,8 @@ import java.rmi.RemoteException;
 import java.util.Scanner;
 import java.util.logging.Logger;
 
+import static java.lang.Thread.sleep;
+
 /**
  * Created with IntelliJ IDEA.
  * User: mateusz
@@ -61,7 +63,7 @@ public class Client {
             }
             IGameListener gl = gameManager.createGameWithHuman(symbol,nick);
             while( !gl.playerDidJoin() )
-                gl.getJoinCond().await();
+                sleep(10);
             gameManager.startGame(nick);
             map = new Map();
             Scanner in = new Scanner(System.in);
@@ -78,7 +80,7 @@ public class Client {
                     System.exit(-1);
                 }
                 while( !gl.isOpponentMoveReady() )
-                    gl.getOpponentCond().await();
+                    sleep(10);
                 int[] opponentMove = gl.getOpponentMove();
                 map.setFieldValue(opponentMove[0],opponentMove[1],PlayerSymbol.OPPOSITE_SYMBOLS.get(symbol));
                 printMap();
@@ -121,7 +123,7 @@ public class Client {
             map = new Map();
             while( running ) {
                 while( !gl.isOpponentMoveReady() )
-                    gl.getOpponentCond().await();
+                    sleep(10);
                 int[] opponentMove = gl.getOpponentMove();
                 map.setFieldValue(opponentMove[0],opponentMove[1],PlayerSymbol.OPPOSITE_SYMBOLS.get(symbol));
                 printMap();
