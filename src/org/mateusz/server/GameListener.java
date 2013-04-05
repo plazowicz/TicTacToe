@@ -22,13 +22,15 @@ public class GameListener extends UnicastRemoteObject implements IGameListener {
     private int[] opponentMove;
     private PlayerSymbol winner;
     private boolean ndPlayerPresence;
+    private PlayerSymbol opponent;
 
-    protected GameListener() throws RemoteException {
+    protected GameListener(PlayerSymbol opponent) throws RemoteException {
         super();
         ndPlayerPresence = false;
         winner = null;
         move = null;
         opponentMove = null;
+        this.opponent = opponent;
     }
 
     @Override
@@ -89,6 +91,11 @@ public class GameListener extends UnicastRemoteObject implements IGameListener {
     @Override
     public void setPresence() throws RemoteException {
         ndPlayerPresence = true;
+    }
+
+    @Override
+    public PlayerSymbol getOpponentSymbol() throws RemoteException {
+        return opponent;
     }
 
 }

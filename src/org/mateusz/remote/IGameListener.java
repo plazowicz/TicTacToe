@@ -37,4 +37,6 @@ public interface IGameListener extends Remote {
 
     public void setPresence() throws RemoteException;
 
+    public PlayerSymbol getOpponentSymbol() throws RemoteException;
+
 }

@@ -35,14 +35,18 @@ public class Map {
     }
 
     public void print() {
+        System.out.println(" |0|1|2|");
         for( int i = 0 ; i < Map.SIZE ; i++ ) {
+            System.out.print(i+"|");
             for( int j = 0 ; j < Map.SIZE ; j++ ) {
                 if( map[i][j] != null )
                     System.out.print(map[i][j].toString());
                 else
                     System.out.print(" ");
+                System.out.print("|");
             }
             System.out.println();
+            System.out.println("  ------");
         }
         System.out.println();
     }

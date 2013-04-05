@@ -25,11 +25,4 @@ public enum PlayerSymbol {
         return code;
     }
 
-    public static final Map<PlayerSymbol,PlayerSymbol> OPPOSITE_SYMBOLS = Collections.unmodifiableMap(new HashMap<PlayerSymbol, PlayerSymbol>() {
-        {
-            put(PlayerSymbol.CIRCLE,PlayerSymbol.CROSS);
-            put(PlayerSymbol.CROSS,PlayerSymbol.CIRCLE);
-        }
-    });
-
 }

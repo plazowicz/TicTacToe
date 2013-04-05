@@ -5,6 +5,7 @@ import org.mateusz.remote.IClientObserver;
 import org.mateusz.remote.IGameListener;
 import org.mateusz.remote.IGameManager;
 import org.mateusz.remote.IUserManager;
+import org.mateusz.utils.Constants;
 import org.mateusz.utils.PlayerSymbol;
 
 import java.rmi.Naming;
@@ -67,6 +68,7 @@ public class Client {
             gameManager.startGame(nick);
             map = new Map();
             Scanner in = new Scanner(System.in);
+            map.print();
             while( running ) {
                 System.out.println("Please give coordinates of your move");
                 int x = in.nextInt();
@@ -82,7 +84,7 @@ public class Client {
                 while( !gl.isOpponentMoveReady() )
                     sleep(10);
                 int[] opponentMove = gl.getOpponentMove();
-                map.setFieldValue(opponentMove[0],opponentMove[1],PlayerSymbol.OPPOSITE_SYMBOLS.get(symbol));
+                map.setFieldValue(opponentMove[0],opponentMove[1],Constants.OPPOSITE_SYMBOLS.get(symbol));
                 map.print();
                 if( (winner = gl.gameDidFinish()) != null ) {
                     System.out.println("The winner is "+winner.toString());
@@ -108,12 +110,14 @@ public class Client {
             Scanner in = new Scanner(System.in);
             String owner = in.nextLine();
             IGameListener gl = gameManager.joinGame(owner, nick);
+            symbol = Constants.OPPOSITE_SYMBOLS.get(gl.getOpponentSymbol());
             map = new Map();
+            map.print();
             while( running ) {
                 while( !gl.isOpponentMoveReady() )
                     sleep(10);
                 int[] opponentMove = gl.getOpponentMove();
-                map.setFieldValue(opponentMove[0],opponentMove[1],PlayerSymbol.OPPOSITE_SYMBOLS.get(symbol));
+                boolean b = map.setFieldValue(opponentMove[0], opponentMove[1], Constants.OPPOSITE_SYMBOLS.get(symbol));
                 map.print();
                 if( (winner = gl.gameDidFinish()) != null ) {
                     System.out.println("The winner is "+winner.toString());
