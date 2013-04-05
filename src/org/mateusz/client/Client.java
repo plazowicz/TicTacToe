@@ -155,6 +155,7 @@ public class Client {
         try {
             System.setProperty("java.rmi.server.hostname",args[3]);
             rmiRegistry = "rmi://"+args[0]+":"+args[1];
+            System.out.println(rmiRegistry);
             userManager = (IUserManager) Naming.lookup(rmiRegistry+"/UserManager");
             IClientObserver clientObserver = new ClientObserver();
             userManager.register(args[2], clientObserver);

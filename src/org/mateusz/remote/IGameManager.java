@@ -3,6 +3,7 @@ package org.mateusz.remote;
 import org.mateusz.utils.PlayerSymbol;
 
 import java.net.MalformedURLException;
+import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.Set;
 
@@ -13,7 +14,7 @@ import java.util.Set;
  * Time: 7:03 PM
  * To change this template use File | Settings | File Templates.
  */
-public interface IGameManager {
+public interface IGameManager extends Remote {
 
     public IGameListener createGameWithHuman(PlayerSymbol symbol, String nick) throws RemoteException, MalformedURLException;
 
