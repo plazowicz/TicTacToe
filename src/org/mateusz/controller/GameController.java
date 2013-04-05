@@ -24,7 +24,6 @@ public class GameController {
     }
 
     public int[] makeMove(IPlayer player) {
-        logger.info("Make move controllera");
         int[] move = player.makeMove();
         return map.setFieldValue(move[0],move[1],player.getSymbol())?move : null;
     }

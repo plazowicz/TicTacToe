@@ -69,6 +69,7 @@ public class GameManager extends UnicastRemoteObject implements IGameManager {
         IPlayer bot = BotFactory.getInstance().createBot(botGl,Constants.OPPOSITE_SYMBOLS.get(symbol),botLevel);
         gr.addPlayer(bot,null);
         gl.setPresence();
+        new Thread(gr).start();
         return gl;
     }
 

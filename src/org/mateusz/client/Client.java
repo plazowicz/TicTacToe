@@ -202,10 +202,6 @@ public class Client {
                     System.exit(-1);
             }
             IGameListener gl = gameManager.createGameWithAI(symbol,nick,level);
-            System.out.println("Waiting for opponent...");
-            while( !gl.playerDidJoin() )
-                sleep(10);
-            gameManager.startGame(nick);        //TODO game start !!!
             map = new Map();
             Scanner in = new Scanner(System.in);
             map.print();
@@ -229,6 +225,7 @@ public class Client {
                 map.print();
                 while( !gl.isWinnerCheckReady() )
                     sleep(10);
+                System.out.println("wtf");
                 if( (winner = gl.gameDidFinish()) != PlayerSymbol.LAST ) {
                     System.out.println("The winner is "+winner.toString());
                     System.exit(-1);

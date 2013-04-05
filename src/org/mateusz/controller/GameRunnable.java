@@ -64,7 +64,6 @@ public class GameRunnable implements Runnable {
                     break;
                 }
                 secondPlayer.getListener().setOpponentMove(move);
-                logger.info("1st player moved");
 
                 symbol = gameController.gameDidFinish();
                 firstPlayer.getListener().setWinner(symbol);

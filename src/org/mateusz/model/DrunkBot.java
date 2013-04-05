@@ -37,7 +37,6 @@ public class DrunkBot extends DummyBot {
                 x = random.nextInt(Map.SIZE);
                 y = random.nextInt(Map.SIZE);
             } while( map.getFieldValue(x,y) != null);
-            logger.info("drinker chose coords");
             map.setFieldValue(x,y,symbol);
             return new int[]{x,y};
         } catch(Exception e) {
