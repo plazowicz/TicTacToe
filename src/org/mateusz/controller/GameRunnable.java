@@ -55,8 +55,10 @@ public class GameRunnable implements Runnable {
             try {
                 count++;
                 if( (move = gameController.makeMove(firstPlayer)) == null ) {
-                    firstObserver.loseConnection(firstPlayer.getListener());
-                    secondObserver.loseConnection(secondPlayer.getListener());
+                    if( firstObserver != null )
+                        firstObserver.loseConnection(firstPlayer.getListener());
+                    if( secondObserver != null )
+                        secondObserver.loseConnection(secondPlayer.getListener());
                     running = false;
                     break;
                 }
@@ -78,8 +80,10 @@ public class GameRunnable implements Runnable {
                 }
                 count++;
                 if( (move = gameController.makeMove(secondPlayer)) == null ) {
-                    firstObserver.loseConnection(firstPlayer.getListener());
-                    secondObserver.loseConnection(secondPlayer.getListener());
+                    if( firstObserver != null )
+                        firstObserver.loseConnection(firstPlayer.getListener());
+                    if( secondObserver != null )
+                        secondObserver.loseConnection(secondPlayer.getListener());
                     running = false;
                     break;
                 }
