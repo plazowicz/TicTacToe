@@ -8,7 +8,7 @@
     <file path="/conf.properties" changelist="16e93927-37f2-4574-af37-971a8bc7834a" time="1365000984305" ignored="false" />
     <file path="/IRegistrationManager.java" changelist="16e93927-37f2-4574-af37-971a8bc7834a" time="1365009822651" ignored="false" />
     <file path="/IClientObserver.java" changelist="16e93927-37f2-4574-af37-971a8bc7834a" time="1365077455129" ignored="false" />
-    <file path="/fragment.java" changelist="16e93927-37f2-4574-af37-971a8bc7834a" time="1365149895691" ignored="false" />
+    <file path="/fragment.java" changelist="16e93927-37f2-4574-af37-971a8bc7834a" time="1365159194097" ignored="false" />
     <file path="/RegistrationManager.java" changelist="16e93927-37f2-4574-af37-971a8bc7834a" time="1365004027538" ignored="false" />
     <file path="/Client.java" changelist="16e93927-37f2-4574-af37-971a8bc7834a" time="1365156610119" ignored="false" />
     <file path="/.gitignore" changelist="16e93927-37f2-4574-af37-971a8bc7834a" time="1365005314551" ignored="false" />
@@ -25,16 +25,16 @@
     <file path="/GameThread.java" changelist="16e93927-37f2-4574-af37-971a8bc7834a" time="1365079397979" ignored="false" />
     <file path="/GameController.java" changelist="16e93927-37f2-4574-af37-971a8bc7834a" time="1365154791969" ignored="false" />
     <file path="/ClientObserver.java" changelist="16e93927-37f2-4574-af37-971a8bc7834a" time="1365088260519" ignored="false" />
-    <file path="/GameListener.java" changelist="16e93927-37f2-4574-af37-971a8bc7834a" time="1365157435691" ignored="false" />
+    <file path="/GameListener.java" changelist="16e93927-37f2-4574-af37-971a8bc7834a" time="1365157759619" ignored="false" />
     <file path="/ClientThread.java" changelist="16e93927-37f2-4574-af37-971a8bc7834a" time="1365114775513" ignored="false" />
     <file path="$PROJECT_DIR$/src/org/mateusz/client/ClientThread.java" changelist="16e93927-37f2-4574-af37-971a8bc7834a" time="1365114789430" ignored="false" />
-    <file path="/GameRunnable.java" changelist="16e93927-37f2-4574-af37-971a8bc7834a" time="1365156973796" ignored="false" />
+    <file path="/GameRunnable.java" changelist="16e93927-37f2-4574-af37-971a8bc7834a" time="1365159629543" ignored="false" />
     <file path="/DummyGameListener.java" changelist="16e93927-37f2-4574-af37-971a8bc7834a" time="1365150499219" ignored="false" />
     <file path="/Level.java" changelist="16e93927-37f2-4574-af37-971a8bc7834a" time="1365151733647" ignored="false" />
     <file path="/MasterYoda.java" changelist="16e93927-37f2-4574-af37-971a8bc7834a" time="1365151962880" ignored="false" />
     <file path="/BotFactory.java" changelist="16e93927-37f2-4574-af37-971a8bc7834a" time="1365152069005" ignored="false" />
     <file path="/DummyBot.java" changelist="16e93927-37f2-4574-af37-971a8bc7834a" time="1365152569085" ignored="false" />
-    <file path="/DrunkBot.java" changelist="16e93927-37f2-4574-af37-971a8bc7834a" time="1365154035071" ignored="false" />
+    <file path="/DrunkBot.java" changelist="16e93927-37f2-4574-af37-971a8bc7834a" time="1365159380234" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -105,16 +105,16 @@
       <file leaf-file-name="Client.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/org/mateusz/client/Client.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="88" column="66" selection-start="2850" selection-end="2850" vertical-scroll-proportion="0.0">
+            <state line="84" column="33" selection-start="2627" selection-end="2627" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GameListener.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="GameListener.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/org/mateusz/server/GameListener.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="50" column="86" selection-start="1373" selection-end="1373" vertical-scroll-proportion="0.19155844">
+            <state line="73" column="93" selection-start="1921" selection-end="1921" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -141,7 +141,7 @@
       <file leaf-file-name="DrunkBot.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/org/mateusz/model/DrunkBot.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="39" column="20" selection-start="1112" selection-end="1112" vertical-scroll-proportion="0.0">
+            <state line="31" column="13" selection-start="766" selection-end="766" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -178,10 +178,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GameRunnable.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="GameRunnable.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/org/mateusz/controller/GameRunnable.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="98" column="59" selection-start="3464" selection-end="3464" vertical-scroll-proportion="0.0">
+            <state line="87" column="111" selection-start="2947" selection-end="2947" vertical-scroll-proportion="0.53571427">
               <folding />
             </state>
           </provider>
@@ -209,10 +209,10 @@
         <option value="$PROJECT_DIR$/src/org/mateusz/model/HumanPlayer.java" />
         <option value="$PROJECT_DIR$/src/org/mateusz/server/GameManager.java" />
         <option value="$PROJECT_DIR$/src/org/mateusz/controller/GameController.java" />
-        <option value="$PROJECT_DIR$/src/org/mateusz/model/DrunkBot.java" />
-        <option value="$PROJECT_DIR$/src/org/mateusz/controller/GameRunnable.java" />
         <option value="$PROJECT_DIR$/src/org/mateusz/client/Client.java" />
         <option value="$PROJECT_DIR$/src/org/mateusz/server/GameListener.java" />
+        <option value="$PROJECT_DIR$/src/org/mateusz/model/DrunkBot.java" />
+        <option value="$PROJECT_DIR$/src/org/mateusz/controller/GameRunnable.java" />
       </list>
     </option>
   </component>
@@ -532,7 +532,7 @@
       </extension>
       <option name="MAIN_CLASS_NAME" value="org.mateusz.client.Client" />
       <option name="VM_PARAMETERS" value="" />
-      <option name="PROGRAM_PARAMETERS" value="192.168.1.102 1099 Mateusz2 192.168.1.102" />
+      <option name="PROGRAM_PARAMETERS" value="192.168.1.102 1099 plazowicz 192.168.1.102" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" value="" />
@@ -735,11 +735,11 @@
       <window_info id="UI Defaults" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="J2D Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.13340448" sideWeight="0.2140575" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.13340448" sideWeight="0.68370605" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.13340448" sideWeight="0.46219382" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.31629393" sideWeight="0.49786553" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32817504" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
@@ -893,7 +893,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/mateusz/model/DrunkBot.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="39" column="20" selection-start="1112" selection-end="1112" vertical-scroll-proportion="0.0">
+        <state line="31" column="13" selection-start="766" selection-end="766" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/mateusz/server/GameListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="73" column="93" selection-start="1921" selection-end="1921" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/mateusz/client/Client.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="84" column="33" selection-start="2627" selection-end="2627" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -907,21 +921,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/mateusz/controller/GameRunnable.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="98" column="59" selection-start="3464" selection-end="3464" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/mateusz/client/Client.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="88" column="66" selection-start="2850" selection-end="2850" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/mateusz/server/GameListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="50" column="86" selection-start="1373" selection-end="1373" vertical-scroll-proportion="0.19155844">
+        <state line="87" column="111" selection-start="2947" selection-end="2947" vertical-scroll-proportion="0.53571427">
           <folding />
         </state>
       </provider>

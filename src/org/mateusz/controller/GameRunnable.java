@@ -8,6 +8,8 @@ import org.mateusz.utils.PlayerSymbol;
 import java.rmi.RemoteException;
 import java.util.logging.Logger;
 
+import static java.lang.Thread.sleep;
+
 /**
  * Created with IntelliJ IDEA.
  * User: mateusz
@@ -80,6 +82,9 @@ public class GameRunnable implements Runnable {
                     break;
                 }
                 count++;
+                while( firstPlayer.getListener().isWinnerCheckReady() )
+                    sleep(10);
+                System.out.println("jestem?");
                 if( (move = gameController.makeMove(secondPlayer)) == null ) {
                     if( firstObserver != null )
                         firstObserver.loseConnection(firstPlayer.getListener());
@@ -99,6 +104,8 @@ public class GameRunnable implements Runnable {
                     break;
                 }
             } catch(RemoteException e) {
+                logger.severe(e.getLocalizedMessage());
+            } catch (InterruptedException e) {
                 logger.severe(e.getLocalizedMessage());
             }
         }
