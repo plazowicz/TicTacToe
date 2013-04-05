@@ -16,6 +16,7 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" exported="" name="hazelcast-2.5" level="project" />
   </component>
 </module>
 

@@ -163,9 +163,11 @@ public class Client {
             System.out.println("Please choose if you'd like to (c)reate game or (j)oin game");
             switch( System.in.read() ) {
                 case 'c':
+                    System.in.read();
                     createGame(args[2]);
                     break;
                 case 'j':
+                    System.in.read();
                     joinGame(args[2]);
                     break;
                 default:
