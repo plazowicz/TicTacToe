@@ -6,8 +6,10 @@ import org.mateusz.remote.IGameListener;
 import org.mateusz.remote.IGameManager;
 import org.mateusz.remote.IUserManager;
 import org.mateusz.utils.Constants;
+import org.mateusz.utils.Level;
 import org.mateusz.utils.PlayerSymbol;
 
+import java.io.IOException;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.util.Scanner;
@@ -150,6 +152,93 @@ public class Client {
         }
     }
 
+    public static void createGameWithHuman(String nick) throws IOException {
+        System.out.println("Please choose if you'd like to (c)reate game or (j)oin game");
+
+        switch( System.in.read() ) {
+            case 'c':
+                System.in.read();
+                createGame(nick);
+                break;
+            case 'j':
+                System.in.read();
+                joinGame(nick);
+                break;
+            default:
+                System.out.println("wrong option");
+                System.exit(-1);
+        }
+    }
+
+    public static void createGameWithAI(String nick) {
+        try {
+            System.out.println("Pleasy choose symbol: x or o");
+            switch( System.in.read() ) {
+                case 'x':
+                    System.in.read();
+                    symbol = PlayerSymbol.CROSS;
+                    break;
+                case 'o':
+                    System.in.read();
+                    symbol = PlayerSymbol.CIRCLE;
+                    break;
+                default:
+                    System.out.println("There is no such symbol");
+                    System.exit(-1);
+            }
+            System.out.println("Please choose bot level: (D)runk or (Y)oda");
+            Level level = null;
+            switch( System.in.read() ) {
+                case 'D':
+                    System.in.read();
+                    level = Level.DRUNK_BOT;
+                    break;
+                case 'Y':
+                    System.in.read();
+                    level = Level.MASTER_YODA;
+                    break;
+                default:
+                    System.out.println("There is no such symbol");
+                    System.exit(-1);
+            }
+            IGameListener gl = gameManager.createGameWithAI(symbol,nick,level);
+            System.out.println("Waiting for opponent...");
+            while( !gl.playerDidJoin() )
+                sleep(10);
+            gameManager.startGame(nick);        //TODO game start !!!
+            map = new Map();
+            Scanner in = new Scanner(System.in);
+            map.print();
+            while( running ) {
+                System.out.println("Please give coordinates of your move");
+                int x = in.nextInt();
+                int y = in.nextInt();
+                gl.makeMove(new int[]{ x, y});
+                map.setFieldValue(x,y,symbol);
+                map.print();
+                while( !gl.isWinnerCheckReady() )
+                    sleep(10);
+                if( (winner = gl.gameDidFinish()) != PlayerSymbol.LAST ) {
+                    System.out.println("The winner is "+winner.toString());
+                    System.exit(-1);
+                }
+                while( !gl.isOpponentMoveReady() )
+                    sleep(10);
+                int[] opponentMove = gl.getOpponentMove();
+                map.setFieldValue(opponentMove[0],opponentMove[1],Constants.OPPOSITE_SYMBOLS.get(symbol));
+                map.print();
+                while( !gl.isWinnerCheckReady() )
+                    sleep(10);
+                if( (winner = gl.gameDidFinish()) != PlayerSymbol.LAST ) {
+                    System.out.println("The winner is "+winner.toString());
+                    System.exit(-1);
+                }
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void main(String[] args) {
         if( args.length != 4 ) {
             System.out.println("Usage: java <IP> <PORT> <NICK> <CLIENT_IP>");
@@ -163,15 +252,15 @@ public class Client {
             IClientObserver clientObserver = new ClientObserver();
             userManager.register(args[2], clientObserver);
             gameManager = (IGameManager) Naming.lookup(rmiRegistry+"/GameManager");
-            System.out.println("Please choose if you'd like to (c)reate game or (j)oin game");
+            System.out.println("Please choose if you'd like to play with (h)uman or (A)I");
             switch( System.in.read() ) {
-                case 'c':
+                case 'h':
                     System.in.read();
-                    createGame(args[2]);
+                    createGameWithHuman(args[2]);
                     break;
-                case 'j':
+                case 'A':
                     System.in.read();
-                    joinGame(args[2]);
+                    createGameWithAI(args[2]);
                     break;
                 default:
                     System.out.println("wrong option");

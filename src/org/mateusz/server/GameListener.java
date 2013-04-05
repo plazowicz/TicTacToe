@@ -36,6 +36,7 @@ public class GameListener extends UnicastRemoteObject implements IGameListener {
     @Override
     public void makeMove(int[] move) throws RemoteException {
         this.move = move;
+        logger.info("Make move listenera");
     }
 
     @Override
@@ -59,6 +60,7 @@ public class GameListener extends UnicastRemoteObject implements IGameListener {
 
     @Override
     public boolean isMoveReady() throws RemoteException {
+        System.out.println(move);
         return move != null;
     }
 

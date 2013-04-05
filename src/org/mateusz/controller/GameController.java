@@ -4,6 +4,8 @@ import org.mateusz.model.IPlayer;
 import org.mateusz.model.Map;
 import org.mateusz.utils.PlayerSymbol;
 
+import java.util.logging.Logger;
+
 /**
  * Created with IntelliJ IDEA.
  * User: mateusz
@@ -13,6 +15,8 @@ import org.mateusz.utils.PlayerSymbol;
  */
 public class GameController {
 
+    public static final Logger logger = Logger.getLogger(GameController.class.getSimpleName());
+
     private Map map;
 
     public GameController() {
@@ -20,6 +24,7 @@ public class GameController {
     }
 
     public int[] makeMove(IPlayer player) {
+        logger.info("Make move controllera");
         int[] move = player.makeMove();
         return map.setFieldValue(move[0],move[1],player.getSymbol())?move : null;
     }

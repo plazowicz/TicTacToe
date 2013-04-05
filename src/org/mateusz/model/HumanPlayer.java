@@ -31,6 +31,7 @@ public class HumanPlayer implements IPlayer {
 
     @Override
     public int[] makeMove() {
+        System.out.println("Make move human player start");
         try {
             while( !listener.isMoveReady() )
                 sleep(10);

@@ -55,6 +55,7 @@ public class GameRunnable implements Runnable {
             try {
                 count++;
                 if( (move = gameController.makeMove(firstPlayer)) == null ) {
+                    logger.info("move eq null");
                     if( firstObserver != null )
                         firstObserver.loseConnection(firstPlayer.getListener());
                     if( secondObserver != null )
@@ -63,6 +64,7 @@ public class GameRunnable implements Runnable {
                     break;
                 }
                 secondPlayer.getListener().setOpponentMove(move);
+                logger.info("1st player moved");
 
                 symbol = gameController.gameDidFinish();
                 firstPlayer.getListener().setWinner(symbol);

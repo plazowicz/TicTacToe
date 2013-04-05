@@ -5,6 +5,9 @@ import org.mateusz.utils.Constants;
 import org.mateusz.utils.PlayerSymbol;
 
 import java.util.Random;
+import java.util.logging.Logger;
+
+import static java.lang.Thread.sleep;
 
 /**
  * Created with IntelliJ IDEA.
@@ -14,6 +17,8 @@ import java.util.Random;
  * To change this template use File | Settings | File Templates.
  */
 public class DrunkBot extends DummyBot {
+
+    public static Logger logger = Logger.getLogger(DrunkBot.class.getSimpleName());
 
     private Random random;
 
@@ -31,7 +36,8 @@ public class DrunkBot extends DummyBot {
             do {
                 x = random.nextInt(Map.SIZE);
                 y = random.nextInt(Map.SIZE);
-            } while( map.getFieldValue(x,y) == null);
+            } while( map.getFieldValue(x,y) != null);
+            logger.info("drinker chose coords");
             map.setFieldValue(x,y,symbol);
             return new int[]{x,y};
         } catch(Exception e) {
