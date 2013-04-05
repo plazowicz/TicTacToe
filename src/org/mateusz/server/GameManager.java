@@ -67,7 +67,7 @@ public class GameManager extends UnicastRemoteObject implements IGameManager {
     }
 
     @Override
-    public Set<String> listGames() throws RemoteException {
-        return games.keySet();
+    public String[] listGames() throws RemoteException {
+        return (String[]) games.keySet().toArray();
     }
 }

@@ -24,6 +24,6 @@ public interface IGameManager extends Remote {
 
     public void startGame(String owner) throws RemoteException;
 
-    public Set<String> listGames() throws RemoteException;
+    public String[] listGames() throws RemoteException;
 
 }
