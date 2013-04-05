@@ -30,7 +30,7 @@ public class HumanPlayer implements IPlayer {
     @Override
     public int[] makeMove() {
         try {
-            while( !listener.isReady() )
+            while( !listener.isMoveReady() )
                 listener.getMyCond().await();
         }   catch (InterruptedException e) {
             logger.severe(e.getLocalizedMessage());

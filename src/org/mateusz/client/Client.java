@@ -1,5 +1,6 @@
 package org.mateusz.client;
 
+import org.mateusz.model.Map;
 import org.mateusz.remote.IClientObserver;
 import org.mateusz.remote.IGameListener;
 import org.mateusz.remote.IGameManager;
@@ -7,6 +8,9 @@ import org.mateusz.remote.IUserManager;
 import org.mateusz.utils.PlayerSymbol;
 
 import java.rmi.Naming;
+import java.rmi.RemoteException;
+import java.util.Scanner;
+import java.util.logging.Logger;
 
 /**
  * Created with IntelliJ IDEA.
@@ -18,18 +22,129 @@ import java.rmi.Naming;
 public class Client {
 
 
-    private IUserManager userManager;
-    private IGameManager gameManager;
-    public Client() {
+    public static final Logger logger = Logger.getLogger(Client.class.getSimpleName());
+
+    private static Client client;
+    private static IGameManager gameManager;
+    private static IUserManager userManager;
+    private static PlayerSymbol symbol;
+    private static PlayerSymbol winner;
+
+    private static String rmiRegistry;
+    private static boolean running = true;
+    private static Map map;
+
+    private Client() {
 
     }
 
-    public void createGame() {
-
+    public static Client clientInstance() {
+        if( client == null ) {
+            client = new Client();
+        }
+        return client;
     }
 
-    public void joinGame() {
+    public static void createGame(String nick) {
+        try {
+            System.out.println("Pleasy choose symbol: x or o");
+            switch( System.in.read() ) {
+                case 'x':
+                    symbol = PlayerSymbol.CROSS;
+                    break;
+                case 'o':
+                    symbol = PlayerSymbol.CIRCLE;
+                    break;
+                default:
+                    System.out.println("There is no such symbol");
+                    System.exit(-1);
+            }
+            IGameListener gl = gameManager.createGameWithHuman(symbol,nick);
+            while( !gl.playerDidJoin() )
+                gl.getJoinCond().await();
+            gameManager.startGame(nick);
+            map = new Map();
+            Scanner in = new Scanner(System.in);
+            while( running ) {
+                System.out.println("Please give coordinates of your move");
+                int x = in.nextInt();
+                int y = in.nextInt();
+                logger.info("Move coordinates: x="+x+", y="+y);
+                gl.makeMove(new int[]{ x, y});
+                map.setFieldValue(x,y,symbol);
+                printMap();
+                if( (winner = gl.gameDidFinish()) != null ) {
+                    System.out.println("The winner is "+winner.toString());
+                    System.exit(-1);
+                }
+                while( !gl.isOpponentMoveReady() )
+                    gl.getOpponentCond().await();
+                int[] opponentMove = gl.getOpponentMove();
+                map.setFieldValue(opponentMove[0],opponentMove[1],PlayerSymbol.OPPOSITE_SYMBOLS.get(symbol));
+                printMap();
+                if( (winner = gl.gameDidFinish()) != null ) {
+                    System.out.println("The winner is "+winner.toString());
+                    System.exit(-1);
+                }
+            }
 
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void printMap() {
+        for( int i = 0 ; i < Map.SIZE; i++ ) {
+            for( int j = 0 ; j < Map.SIZE ; j++ ) {
+                System.out.print(map.getFieldValue(i,j).toString());
+            }
+            System.out.println();
+        }
+        System.out.println();
+        System.out.println("########################################");
+        System.out.println();
+    }
+
+    public static void listGames() throws RemoteException {
+        for(String owner : gameManager.listGames())
+            System.out.println(owner);
+    }
+
+    public static void joinGame(String nick) {
+        System.out.println("These are possible games:");
+        try {
+            listGames();
+            System.out.println("Please choose game");
+            Scanner in = new Scanner(System.in);
+            String owner = in.nextLine();
+            IGameListener gl = gameManager.joinGame(owner, nick);
+            map = new Map();
+            while( running ) {
+                while( !gl.isOpponentMoveReady() )
+                    gl.getOpponentCond().await();
+                int[] opponentMove = gl.getOpponentMove();
+                map.setFieldValue(opponentMove[0],opponentMove[1],PlayerSymbol.OPPOSITE_SYMBOLS.get(symbol));
+                printMap();
+                if( (winner = gl.gameDidFinish()) != null ) {
+                    System.out.println("The winner is "+winner.toString());
+                    System.exit(-1);
+                }
+                System.out.println("Please give coordinates of your move");
+                int x = in.nextInt();
+                int y = in.nextInt();
+                logger.info("Move coordinates: x="+x+", y="+y);
+                gl.makeMove(new int[]{ x, y});
+                map.setFieldValue(x,y,symbol);
+                printMap();
+                if( (winner = gl.gameDidFinish()) != null ) {
+                    System.out.println("The winner is "+winner.toString());
+                    System.exit(-1);
+                }
+
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static void main(String[] args) {
@@ -39,15 +154,23 @@ public class Client {
         }
         try {
             System.setProperty("java.rmi.server.hostname",args[3]);
-            String url = "rmi://"+args[0]+":"+args[1];
-            System.out.println(url);
-            IUserManager manager = (IUserManager) Naming.lookup(url+"/UserManager");
+            rmiRegistry = "rmi://"+args[0]+":"+args[1];
+            userManager = (IUserManager) Naming.lookup(rmiRegistry+"/UserManager");
             IClientObserver clientObserver = new ClientObserver();
-            manager.register(args[2], clientObserver);
-            IGameManager gameManager = (IGameManager) Naming.lookup(url+"/GameManager");
-            IGameListener gl = gameManager.createGameWithHuman(PlayerSymbol.CIRCLE,args[2]);
-            while( !gl.playerDidJoin() )
-                gl.getJoinCond().await();
+            userManager.register(args[2], clientObserver);
+            gameManager = (IGameManager) Naming.lookup(rmiRegistry+"/GameManager");
+            System.out.println("Please choose if you'd like to (c)reate game or (j)oin game");
+            switch( System.in.read() ) {
+                case 'c':
+                    createGame(args[2]);
+                    break;
+                case 'j':
+                    joinGame(args[2]);
+                    break;
+                default:
+                    System.out.println("wrong option");
+                    System.exit(-1);
+            }
 
         } catch(Exception e) {
             e.printStackTrace();

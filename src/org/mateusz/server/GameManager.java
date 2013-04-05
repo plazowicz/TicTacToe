@@ -14,6 +14,7 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.
@@ -23,13 +24,6 @@ import java.util.Map;
  * To change this template use File | Settings | File Templates.
  */
 public class GameManager extends UnicastRemoteObject implements IGameManager {
-
-    public static final Map<PlayerSymbol,PlayerSymbol> OPPOSITE_SYMBOLS = Collections.unmodifiableMap(new HashMap<PlayerSymbol, PlayerSymbol>() {
-        {
-            put(PlayerSymbol.CIRCLE,PlayerSymbol.CROSS);
-            put(PlayerSymbol.CROSS,PlayerSymbol.CIRCLE);
-        }
-    });
 
     private UserManager userManager;
     private Map<String,GameRunnable> games;
@@ -55,7 +49,7 @@ public class GameManager extends UnicastRemoteObject implements IGameManager {
         GameRunnable gt = games.get(name);
         IGameListener gl = new GameListener();
 //        Naming.rebind(nick+"_gl",gl);
-        IPlayer player = new HumanPlayer(gl,nick,OPPOSITE_SYMBOLS.get(gt.getFirstPlayer().getSymbol()));
+        IPlayer player = new HumanPlayer(gl,nick,PlayerSymbol.OPPOSITE_SYMBOLS.get(gt.getFirstPlayer().getSymbol()));
         IClientObserver observer = userManager.getClientObserver(nick);
         gt.addPlayer(player,observer);
         gt.getFirstPlayer().getListener().setPresence();
@@ -70,5 +64,10 @@ public class GameManager extends UnicastRemoteObject implements IGameManager {
     @Override
     public void startGame(String owner) throws RemoteException {
         new Thread(games.get(owner)).start();
+    }
+
+    @Override
+    public Set<String> listGames() throws RemoteException {
+        return games.keySet();
     }
 }

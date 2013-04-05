@@ -19,11 +19,13 @@ public interface IGameListener extends Remote {
 
     public void setOpponentMove(int[] move) throws RemoteException;
 
-    public int[] getOponentMove() throws RemoteException;
+    public int[] getOpponentMove() throws RemoteException;
 
     public int[] getMove() throws RemoteException;
 
-    public boolean  isReady() throws RemoteException;
+    public boolean isMoveReady() throws RemoteException;
+
+    public boolean isOpponentMoveReady() throws RemoteException;
 
     public PlayerSymbol gameDidFinish() throws RemoteException;
 

@@ -34,6 +34,9 @@ public class GameListener extends UnicastRemoteObject implements IGameListener {
     protected GameListener() throws RemoteException {
         super();
         ndPlayerPresence = false;
+        winner = null;
+        move = null;
+        opponentMove = null;
     }
 
     @Override
@@ -59,7 +62,7 @@ public class GameListener extends UnicastRemoteObject implements IGameListener {
     }
 
     @Override
-    public int[] getOponentMove() throws RemoteException {
+    public int[] getOpponentMove() throws RemoteException {
         int[] opponentMove = this.opponentMove;
         this.opponentMove = null;
         return opponentMove;
@@ -73,8 +76,13 @@ public class GameListener extends UnicastRemoteObject implements IGameListener {
     }
 
     @Override
-    public boolean isReady() throws RemoteException {
+    public boolean isMoveReady() throws RemoteException {
         return move != null;
+    }
+
+    @Override
+    public boolean isOpponentMoveReady() throws RemoteException {
+        return opponentMove != null;
     }
 
     @Override

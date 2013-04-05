@@ -4,6 +4,7 @@ import org.mateusz.utils.PlayerSymbol;
 
 import java.net.MalformedURLException;
 import java.rmi.RemoteException;
+import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.
@@ -21,5 +22,7 @@ public interface IGameManager {
     public IGameListener createGameWithAI(PlayerSymbol symbol, String nick) throws RemoteException;
 
     public void startGame(String owner) throws RemoteException;
+
+    public Set<String> listGames() throws RemoteException;
 
 }
