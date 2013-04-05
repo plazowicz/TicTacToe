@@ -74,7 +74,7 @@ public class Client {
                 logger.info("Move coordinates: x="+x+", y="+y);
                 gl.makeMove(new int[]{ x, y});
                 map.setFieldValue(x,y,symbol);
-                printMap();
+                map.print();
                 if( (winner = gl.gameDidFinish()) != null ) {
                     System.out.println("The winner is "+winner.toString());
                     System.exit(-1);
@@ -83,7 +83,7 @@ public class Client {
                     sleep(10);
                 int[] opponentMove = gl.getOpponentMove();
                 map.setFieldValue(opponentMove[0],opponentMove[1],PlayerSymbol.OPPOSITE_SYMBOLS.get(symbol));
-                printMap();
+                map.print();
                 if( (winner = gl.gameDidFinish()) != null ) {
                     System.out.println("The winner is "+winner.toString());
                     System.exit(-1);
@@ -93,18 +93,6 @@ public class Client {
         } catch(Exception e) {
             e.printStackTrace();
         }
-    }
-
-    public static void printMap() {
-        for( int i = 0 ; i < Map.SIZE; i++ ) {
-            for( int j = 0 ; j < Map.SIZE ; j++ ) {
-                System.out.print(map.getFieldValue(i,j).toString());
-            }
-            System.out.println();
-        }
-        System.out.println();
-        System.out.println("########################################");
-        System.out.println();
     }
 
     public static void listGames() throws RemoteException {
@@ -126,7 +114,7 @@ public class Client {
                     sleep(10);
                 int[] opponentMove = gl.getOpponentMove();
                 map.setFieldValue(opponentMove[0],opponentMove[1],PlayerSymbol.OPPOSITE_SYMBOLS.get(symbol));
-                printMap();
+                map.print();
                 if( (winner = gl.gameDidFinish()) != null ) {
                     System.out.println("The winner is "+winner.toString());
                     System.exit(-1);
@@ -137,7 +125,7 @@ public class Client {
                 logger.info("Move coordinates: x="+x+", y="+y);
                 gl.makeMove(new int[]{ x, y});
                 map.setFieldValue(x,y,symbol);
-                printMap();
+                map.print();
                 if( (winner = gl.gameDidFinish()) != null ) {
                     System.out.println("The winner is "+winner.toString());
                     System.exit(-1);

@@ -34,6 +34,19 @@ public class Map {
         return map[x][y];
     }
 
+    public void print() {
+        for( int i = 0 ; i < Map.SIZE ; i++ ) {
+            for( int j = 0 ; j < Map.SIZE ; j++ ) {
+                if( map[i][j] != null )
+                    System.out.print(map[i][j].toString());
+                else
+                    System.out.print(" ");
+            }
+            System.out.println();
+        }
+        System.out.println();
+    }
+
     public static void main(String[] args) {
         Map map = new Map();
         for( int i = 0 ; i < SIZE ; i++ ) {
