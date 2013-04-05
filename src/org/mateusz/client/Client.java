@@ -247,7 +247,10 @@ public class Client {
             System.out.println(rmiRegistry);
             userManager = (IUserManager) Naming.lookup(rmiRegistry+"/UserManager");
             IClientObserver clientObserver = new ClientObserver();
-            userManager.register(args[2], clientObserver);
+            if( !userManager.register(args[2], clientObserver) ) {
+                System.out.println("Your nick is in use. Please try again");
+                System.exit(-1);
+            }
             gameManager = (IGameManager) Naming.lookup(rmiRegistry+"/GameManager");
             System.out.println("Please choose if you'd like to play with (h)uman or (A)I");
             switch( System.in.read() ) {
